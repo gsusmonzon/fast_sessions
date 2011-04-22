@@ -86,13 +86,50 @@ variable.
 
 ==Installation==
 
+*** for Rails 3 ***
+1) Install the Gem via Gemfile:
+
+   include the gem in your Gemfile
+      gem 'fast_sessions', :git => "git@github.com:gsusmonzon/fast_sessions.git"
+
+   run 'bundle install' to update your gems  
+
+2) Enable `ActiveRecord` session store in your `config/environment.rb` file:
+
+  Rails::Initializer.run do |config|
+    ......
+    config.action_controller.session_store = :active_record_store
+    ......
+  end
+  
+  or in your config/initializers/session_store.rb
+  
+  YourApplicationName::Application.config.session_store :active_record_store
+
+3) Create migration for your new sessions table:
+
+  rails generate fast_session_migration AddFastSessions   
+
+4) Open your newly created migration and change `table_name` and `use_auto_increment` 
+parameters of the plugin (if you want to).
+
+5) Run your migration:
+
+  rake db:migrate
+ 
+6) Start your application and try to perform some actions which would definitely 
+save some data to your session. Then check your `fast_sessions` table (if you did 
+not renamed it) for a records.
+  
+*** for Rails 2 ***
+
 This plugin installation is pretty simple and described in a few steps below:
 
 1) Install this plugin sources in your `vendor/plugins` directory (it could be 
 ./script/plugin install, or piston import command - it is up to you) from our 
 SVN reposipory. For example:
 
-  ./script/plugin install http://rails-fast-sessions.googlecode.com/svn/trunk/
+  ./script/plugin install git://git@github.com:gsusmonzon/fast_sessions.git
 
 2) Enable `ActiveRecord` session store in your `config/environment.rb` file:
 
@@ -120,7 +157,7 @@ not renamed it) for a records.
 
 ==Downloading==
 
-Most recent version if this plugin could be found on the project's site: 
+Original version of this plugin could be found on the project's site: 
 
   http://code.google.com/p/rails-fast-sessions/
   
