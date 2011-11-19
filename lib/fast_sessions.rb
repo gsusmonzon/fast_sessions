@@ -1,3 +1,5 @@
+require 'ar_helpers'
+
 module ActiveRecord
   class SessionStore
     class FastSessions
@@ -170,3 +172,4 @@ module ActiveRecord
     end
   end
 end
+ActiveRecord::SessionStore.session_class = ActiveRecord::SessionStore::FastSessions
